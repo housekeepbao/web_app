@@ -19,3 +19,6 @@ JackalkaodeMacBook-Air:web_app jackalkao$ npm run start
 
 connection succesful
 ```
+
+browse index page 
+http://localhost:3000
