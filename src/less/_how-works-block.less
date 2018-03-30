@@ -1,0 +1,39 @@
+.how-works {
+	margin-top: 20px;
+	text-align: center;
+	&-number {
+		display: inline-block;
+		width: 110px;
+		height: 110px;
+		border-radius: 50%;
+		background-color: @custom-color;
+		.box-shadow (0 5px 10px rgba(0,0,0,.1));
+		font-size: 40px;
+		line-height: 110px;
+		font-weight: bold;
+		text-align: center;
+		color: #fff;
+		&--color1 {
+			background-color: #7bd6c5;
+		}
+		&--color2 {
+			background-color: #6dd0f0;
+		}
+		&--color3 {
+			background-color: #4ba0e8;
+		}
+	}
+	&-title {
+		margin: 0;
+		span {
+			color: @custom-color;
+		}
+	}
+	p {
+		font-size: 15px;
+		line-height: 24px;
+	}
+	& > *:not(:first-child) {
+		margin-top: 15px;
+	}
+}

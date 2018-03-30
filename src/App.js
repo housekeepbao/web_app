@@ -33,14 +33,7 @@ class App extends Component {
     this.onTextboxChangeSignInEmail = this.onTextboxChangeSignInEmail.bind(this);
     this.onTextboxChangeSignInPassword = this.onTextboxChangeSignInPassword.bind(this);
 
-    this.onTextboxChangeSignUpPhone = this.onTextboxChangeSignUpPhone.bind(this);
-    this.onTextboxChangeSignUpEmail = this.onTextboxChangeSignUpEmail.bind(this);
-    this.onTextboxChangeSignUpPassword = this.onTextboxChangeSignUpPassword.bind(this);
-    this.onTextboxChangeSignUpFirstName = this.onTextboxChangeSignUpFirstName.bind(this);
-    this.onTextboxChangeSignUpLastName = this.onTextboxChangeSignUpLastName.bind(this);
-
     this.onSignIn = this.onSignIn.bind(this);
-    this.onSignUp = this.onSignUp.bind(this);
     this.logout = this.logout.bind(this);
   }
 
@@ -91,84 +84,6 @@ class App extends Component {
   onTextboxChangeSignInPassword(event) {
     this.setState({
       signInPassword: event.target.value,
-    });
-  }
-
-  onTextboxChangeSignUpPhone(event) {
-    this.setState({
-      signUpPhone: event.target.value,
-    });
-  }
-
-  onTextboxChangeSignUpEmail(event) {
-    this.setState({
-      signUpEmail: event.target.value,
-    });
-  }
-  
-  onTextboxChangeSignUpPassword(event) {
-    this.setState({
-      signUpPassword: event.target.value,
-    });
-  }
-
-  onTextboxChangeSignUpFirstName(event) {
-    this.setState({
-      signUpFirstName: event.target.value,
-    });
-  }
-
-  onTextboxChangeSignUpLastName(event) {
-    this.setState({
-      signUpLastName: event.target.value,
-    });
-  }
-
-  onSignUp() {
-    // Grab state
-    const {
-      signUpPhone,
-      signUpFirstName,
-      signUpLastName,
-      signUpEmail,
-      signUpPassword,
-    } = this.state;
-
-    this.setState({
-      isLoading: true,
-    });
-    
-    // Post request to backend
-    fetch('/api/account/signup',{
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        phoneNumber: signUpPhone,
-        firstName: signUpFirstName,
-        lastName: signUpLastName,
-        email: signUpEmail,
-        password: signUpPassword, 
-      }),
-    }).then(res => res.json())
-      .then(json => {
-        if (json.success) {
-          this.setState({
-            signUpError: json.message,
-            isLoading: false,
-            signUpEmail: '',
-            signUpPassword: '',
-            signUpFirstName: '',
-            signUpLastName: '',
-            signUpPhone: ''
-          });
-        } else {
-          this.setState({
-            signUpError: json.message,
-            isLoading: false,
-          });
-        }
     });
   }
 
@@ -253,12 +168,6 @@ class App extends Component {
       signInPhone,
       signInEmail,
       signInPassword,
-      signUpFirstName,
-      signUpLastName,
-      signUpPhone,
-      signUpEmail,
-      signUpPassword,
-      signUpError,
     } = this.state;
 
     if (isLoading) {
@@ -274,6 +183,16 @@ class App extends Component {
                 <p>{signInError}</p>
               ):(null)
             }
+            <div>
+              <Link to="/signin">登入</Link>
+            </div>
+
+            <div>
+              <Link to="/signup">註冊</Link>
+            </div>
+
+            <br/>
+            <br/>
             <p>Sign In</p>
             <input type="tel" placeholder="Phone Number" value={signInPhone} onChange={this.onTextboxChangeSignInPhone}/><br />
             <input type="password" placeholder="Password" value={signInPassword} onChange={this.onTextboxChangeSignInPassword}/><br />
@@ -282,18 +201,18 @@ class App extends Component {
           <br />
           <br />
           <div>
-            {
+            {/* {
               (signUpError) ? (
                 <p>{signUpError}</p>
               ):(null)
-            }
-            <p>Sign Up</p>
+            } */}
+            {/* <p>Sign Up</p>
             <input type="text" placeholder="First Name" value={signUpFirstName} onChange={this.onTextboxChangeSignUpFirstName}/><br />
             <input type="text" placeholder="Last Name" value={signUpLastName} onChange={this.onTextboxChangeSignUpLastName}/><br />
             <input type="text" placeholder="Phone Number" value={signUpPhone} onChange={this.onTextboxChangeSignUpPhone}/><br />
             <input type="email" placeholder="Email" value={signUpEmail} onChange={this.onTextboxChangeSignUpEmail}/><br />
             <input type="password" placeholder="Password" value={signUpPassword} onChange={this.onTextboxChangeSignUpPassword}/><br />
-            <button onClick={this.onSignUp}>Sign Up</button>
+            <button onClick={this.onSignUp}>Sign Up</button> */}
           </div>
         </div>
       );

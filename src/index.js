@@ -9,11 +9,15 @@ import registerServiceWorker from './registerServiceWorker';
 import Edit from './components/Edit';
 import Create from './components/Create';
 import Show from './components/Show';
+import Signup from './components/Signup';
+import Signin from './components/Signin';
 
 ReactDOM.render(
   <Router>
       <div>
         <Route exact path='/' component={App} />
+        <Route path='/signup' component={Signup} />
+        <Route path='/signin' component={Signin} />
         <Route path='/edit/:id' component={Edit} />
         <Route path='/create' component={Create} />
         <Route path='/show/:id' component={Show} />

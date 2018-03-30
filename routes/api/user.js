@@ -8,11 +8,10 @@ const UserSession = require('../../models/UserSession.js');
 module.exports = (app) => {
 
     app.post('/api/account/signup', (req, res, next) => {
+        
         const {body} = req;
         console.log('body', body);
-        const {
-            firstName,
-            lastName,
+        let {
             password 
         } = body ;
         let {
@@ -23,43 +22,29 @@ module.exports = (app) => {
             phoneNumber
         } = body;
 
-        if (!firstName) {
-            return res.send({
-                success: false,
-                message: 'Error: First name cannot be blank.' 
-            });
-        }
-
-        if (!lastName) {
-            return res.send({
-                success: false,
-                message: 'Error: Last name cannot be blank.' 
-            });
-        }
-
         if (!phoneNumber) {
-            return res.send({
+            return res.status(400).send({
                 success: false,
                 message: 'Error: Phone number cannot be blank.' 
             });
         }
 
         if (!email) {
-            return res.send({
+            return res.status(400).send({
                 success: false,
                 message: 'Error: email name cannot be blank.' 
             });
         }
 
         if (!password) {
-            return res.send({
+            return res.status(400).send({
                 success: false,
                 message: 'Error: password cannot be blank.' 
             });
         }
 
         email = email.toLowerCase();
-    
+
         // Steps:
         //1. Verify phone number doesn't exist
         //2. Save
@@ -68,12 +53,12 @@ module.exports = (app) => {
             phoneNumber: phoneNumber
         }, (err, previousUsers) =>{
             if (err) {
-                return res.send({
+                return res.status(400).send({
                     success: false,
                     message: 'Error: Server error.' 
                 });
             } else if (previousUsers.length > 0) {
-                return res.send({
+                return res.status(400).send({
                     success: false,
                     message: 'Error: Account(phone number) already exist.' 
                 });
@@ -84,18 +69,16 @@ module.exports = (app) => {
         
             newUser.email = email;
             newUser.phoneNumber = phoneNumber;
-            newUser.firstName = firstName;
-            newUser.lastName = lastName;
             newUser.password = newUser.generateHash(password);
             newUser.save((err,user) =>{
                 if (err) {
-                    return res.send({
+                    return res.status(400).send({
                         success: false,
                         message: 'Error: Server error.' 
                     });
                 }
                 
-                return res.send({
+                return res.status(201).send({
                     success: true,
                     message: 'Signed up'
                 });
@@ -117,14 +100,14 @@ module.exports = (app) => {
         } = body;
 
         if (!phoneNumber) {
-            return res.send({
+            return res.status(400).send({
                 success: false,
                 message: 'Error: phone number cannot be blank.' 
             });
         }
 
         if (!password) {
-            return res.send({
+            return res.status(400).send({
                 success: false,
                 message: 'Error: password cannot be blank.' 
             });
@@ -136,14 +119,14 @@ module.exports = (app) => {
             phoneNumber: phoneNumber
         }, (err, users)=> {
             if (err) {
-                return res.send({
+                return res.status(400).send({
                     success: false,
                     message: 'Error: server error'
                 });
             }
 
             if (users.length != 1) {
-                return res.send({
+                return res.status(400).send({
                     success: false,
                     message: 'Error: Invalid'
                 });
@@ -151,7 +134,7 @@ module.exports = (app) => {
 
             const user = users[0];
             if (!user.validPassword(password)) {
-                return res.send({
+                return res.status(400).send({
                     success: false,
                     message: 'Error: Invalid, it may password incorrect'
                 })
@@ -161,13 +144,13 @@ module.exports = (app) => {
             userSession.userId = user._id;
             userSession.save((err, doc) => {
                 if (err) {
-                    return res.send({
+                    return res.status(400).send({
                         success:false,
                         message:'Error: server error'
                     });
                 }
                 
-                return res.send({
+                return res.status(200).send({
                     success: true,
                     message: 'Valid sign in',
                     token: doc._id,
@@ -190,19 +173,19 @@ module.exports = (app) => {
             isDeleted: false
         }, (err, sessions) => {
             if (err) {
-                return res.send({
+                return res.status(400).send({
                     success: false,
                     message: 'Error: Server error'
                 });
             }
 
             if (sessions.length != 1) {
-                return res.send({
+                return res.status(400).send({
                     success: false,
                     message: 'Error: Invalid'
                 });
             } else{
-                return res.send({
+                return res.status(200).send({
                     success: true,
                     message: 'Good, verified account'
                 });
@@ -226,17 +209,16 @@ module.exports = (app) => {
         },
         null, (err, sessions) => {
             if (err) {
-                 return res.send({
+                 return res.status(400).send({
                      success: false,
                      message: 'Error: Server error'
                  });
             }
  
-            return res.send({
+            return res.status(200).send({
                 success: true,
                 message: 'Good, logout account'
             });
-            
         });    
     });
 };
