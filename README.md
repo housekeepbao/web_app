@@ -6,10 +6,17 @@
 
 
 Available API 
+User
 - '/api/account/signup' POST
 - '/api/account/signin' POST
 - '/api/account/verify' GET
 - '/api/account/logout' GET
+
+Cleaner
+- '/api/cleaner/account//signup' POST
+- '/api/cleaner/account//signin' POST
+- '/api/cleaner/account//verify' GET
+- '/api/cleaner/account//logout' GET
 
 
 JackalkaodeMacBook-Air:web_app jackalkao$ npm run start
