@@ -1,0 +1,242 @@
+.pageHeader {
+    position: relative;
+    width: 100%;
+    z-index: 1000;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    color: #425d74;
+    box-shadow:5px 1px #cfcece;
+}
+.pageHeaderTop {
+    padding: 15px 0 15px;
+    color: #425d74;
+    position: relative;
+  }
+  .pageHeaderTop > .container {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
+  @media (max-width: 991px) {
+    .pageHeaderTop > .container {
+      -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+    }
+  }
+  .pageHeaderTop > .container > *:last-child {
+    margin-left: auto;
+    margin-right: 0;
+  }
+  .pageHeaderTop > .container > *:first-child {
+    margin-right: auto;
+    margin-left: 0;
+  }
+  .pageHeaderTop .logo {
+    min-width: 27px;
+    position: relative;
+  }
+  .pageHeaderTop .logo .shine {
+    position: absolute;
+    top: -30%;
+    left: 6%;
+    pointer-events: none;
+  }
+  @media (max-width: 1199px) {
+    .pageHeaderTop .logo {
+      min-width: 20px;
+    }
+  }
+  @media (max-width: 767px) {
+    .pageHeaderTop {
+      padding: 5px 0;
+    }
+    .pageHeaderTop:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 49px;
+      background-color: #4ba0e8;
+    }
+    .pageHeader .quote-button-wrap {
+        -webkit-box-ordinal-group: 3;
+        -webkit-order: 2;
+        -ms-flex-order: 2;
+        order: 2;
+      }
+      .pageHeader .quote-button-wrap .btn {
+        padding: 7px 15px;
+        font-size: 12px;
+        line-height: 24px;
+      }
+      .pageHeader .quote-button-wrap .btn,
+      .pageHeader .quote-button-wrap .btn.focus,
+      .pageHeader .quote-button-wrap .btn:focus {
+        background: #fff;
+        color: #677d8f;
+      }
+      .pageHeader .quote-button-wrap .btn:hover,
+      .pageHeader .quote-button-wrap .btn.active,
+      .pageHeader .quote-button-wrap .btn:active {
+        background: #fff;
+        color: #677d8f;
+      }
+      .pageHeader .quote-button-wrap .btn .icon {
+        font-size: 15px;
+        color: #6fbf52;
+        padding-right: 7px;
+      }
+  }
+  @media (min-width: 768px) {
+    .pageHeader .menu {
+      display: block;
+      padding: 0;
+      margin: 0;
+      height: 58px;
+    }
+    .pageHeader .menu > li {
+      display: inline-block;
+      position: relative;
+      z-index: 100;
+      margin-right: -4px;
+    }
+    .pageHeader .menu > li > a {
+      font-size: 16px;
+      line-height: 28px;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 15px 30px;
+      display: block;
+      color: #425d74;
+      text-transform: uppercase;
+      -webkit-transition: all 0.2s ease-in-out;
+      -moz-transition: all 0.2s ease-in-out;
+      -ms-transition: all 0.2s ease-in-out;
+      -o-transition: all 0.2s ease-in-out;
+    }
+    .pageHeader .menu > li > a .arrow {
+      display: none;
+    }
+    .pageHeader .menu > li:first-child > a {
+      padding-left: 25px;
+    }
+    .pageHeader .menu li a:hover,
+    .pageHeader .menu li:hover > a,
+    .pageHeader .menu li.active > a {
+      color: #6fbf52;
+    }
+    .pageHeader .menu ul {
+      visibility: hidden;
+      opacity: 0;
+      margin: 0;
+      padding: 0;
+      width: 355px;
+      position: absolute;
+      left: 0px;
+      background: #fff;
+      z-index: 99;
+      -webkit-transform: translate(0, 20px);
+      -ms-transform: translate(0, 20px);
+      transform: translate(0, 20px);
+      -webkit-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+      -moz-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+      box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+      -webkit-transition: all 0.2s ease-out 0s;
+      -moz-transition: all 0.2s ease-out 0s;
+      -ms-transition: all 0.2s ease-out 0s;
+      -o-transition: all 0.2s ease-out 0s;
+    }
+    .pageHeader .menu ul li {
+      display: block;
+      float: none;
+      background: none;
+      margin: 0;
+      padding: 0;
+      border-bottom: 1px solid #edeff1;
+    }
+    .pageHeader .menu ul li a {
+      font-size: 14px;
+      line-height: 30px;
+      padding: 10px 32px;
+      font-weight: normal;
+      display: block;
+      color: #4b5b68;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .pageHeader .menu ul li a:before {
+      display: inline-block;
+      vertical-align: middle;
+      font-family: 'cleaning';
+      content: '\e90a';
+      font-size: 10px;
+      position: relative;
+      top: -1px;
+      width: 0;
+      opacity: 0;
+      overflow: hidden;
+      -webkit-transition: all 0.2s ease-out;
+      -moz-transition: all 0.2s ease-out;
+      -ms-transition: all 0.2s ease-out;
+      -o-transition: all 0.2s ease-out;
+    }
+    .pageHeader .menu ul li a:hover,
+    .pageHeader .menu ul li:hover > a {
+      color: #6fbf52;
+    }
+    .pageHeader .menu ul li a:hover:before,
+    .pageHeader .menu ul li:hover > a:before {
+      width: 16px;
+      opacity: 1;
+    }
+    .pageHeader .menu li:hover > ul {
+      visibility: visible;
+      opacity: 1;
+      -webkit-transition: all 0.2s ease-out 0.3s;
+      -moz-transition: all 0.2s ease-out 0.3s;
+      -ms-transition: all 0.2s ease-out 0.3s;
+      -o-transition: all 0.2s ease-out 0.3s;
+      -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+      transform: translate(0, 0);
+    }
+    .pageHeader .menu ul ul {
+      left: 355px;
+      top: 0px;
+      visibility: hidden;
+      opacity: 0;
+      -webkit-transform: translate(20px, 20px);
+      -ms-transform: translate(20px, 20px);
+      transform: translate(20px, 20px);
+      -webkit-transition: all 0.2s ease-out;
+      -o-transition: all 0.2s ease-out;
+      transition: all 0.2s ease-out;
+    }
+    .pageHeader .menu li > ul ul:hover {
+      visibility: visible;
+      opacity: 1;
+      -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+      transform: translate(0, 0);
+    }
+  }
+  @media (min-width: 768px) and (max-width: 1199px) {
+    .pageHeader .menu > li:first-child > a {
+      padding-left: 11px;
+    }
+  }
