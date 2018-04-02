@@ -7,12 +7,12 @@ const CleanerSession = require('../../models/CleanerSession.js');
 /* GET ALL CLEANER */
 module.exports = (app) => {
     app.post('/api/cleaner/account/signup', (req, res, next) => {
-        const {body} = req;
+        const { body } = req;
         console.log('body', body);
         const {
             firstName,
             lastName,
-            
+
             password,
             county,
             workerAccount,
@@ -37,48 +37,48 @@ module.exports = (app) => {
         if (!phoneNumber) {
             return res.status(400).send({
                 success: false,
-                message: 'Error: Phone number cannot be blank.' 
+                message: 'Error: Phone number cannot be blank.'
             });
         }
 
         if (!email) {
             return res.status(400).send({
                 success: false,
-                message: 'Error: email name cannot be blank.' 
+                message: 'Error: email name cannot be blank.'
             });
         }
 
         if (!password) {
             return res.status(400).send({
                 success: false,
-                message: 'Error: password cannot be blank.' 
+                message: 'Error: password cannot be blank.'
             });
         }
 
         email = email.toLowerCase();
-    
+
         // Steps:
         //1. Verify phone number doesn't exist
         //2. Save
         Cleaner.find({
             //email: email,
             phoneNumber: phoneNumber
-        }, (err, previousCleanerUsers) =>{
+        }, (err, previousCleanerUsers) => {
             if (err) {
                 return res.status(400).send({
                     success: false,
-                    message: 'Error: Server error.' 
+                    message: 'Error: Server error.'
                 });
             } else if (previousCleanerUsers.length > 0) {
                 return res.status(400).send({
                     success: false,
-                    message: 'Error: Account(phone number) already exist.' 
+                    message: 'Error: Account(phone number) already exist.'
                 });
             }
-            
+
             // Save the new user
             const newCleanerUser = new Cleaner();
-        
+
             newCleanerUser.email = email;
             newCleanerUser.phoneNumber = phoneNumber;
             newCleanerUser.firstName = firstName;
@@ -95,11 +95,11 @@ module.exports = (app) => {
             newCleanerUser.sex = sex;
 
             newCleanerUser.password = newCleanerUser.generateHash(password);
-            newCleanerUser.save((err, cleaner) =>{
+            newCleanerUser.save((err, cleaner) => {
                 if (err) {
                     return res.status(400).send({
                         success: false,
-                        message: 'Error: Server error.' 
+                        message: 'Error: Server error.'
                     });
                 }
                 console.log(cleaner);
@@ -112,9 +112,9 @@ module.exports = (app) => {
     });
 
     app.post('/api/cleaner/account/signin', (req, res, next) => {
-        const {body} = req;
+        const { body } = req;
         const {
-            password, 
+            password,
         } = body;
         let {
             email
@@ -127,14 +127,14 @@ module.exports = (app) => {
         if (!phoneNumber) {
             return res.status(400).send({
                 success: false,
-                message: 'Error: phone number cannot be blank.' 
+                message: 'Error: phone number cannot be blank.'
             });
         }
 
         if (!password) {
             return res.status(400).send({
                 success: false,
-                message: 'Error: password cannot be blank.' 
+                message: 'Error: password cannot be blank.'
             });
         }
         //email = email.toLowerCase();
@@ -142,7 +142,7 @@ module.exports = (app) => {
         Cleaner.find({
             // email: email
             phoneNumber: phoneNumber
-        }, (err, cleaners)=> {
+        }, (err, cleaners) => {
             if (err) {
                 return res.status(400).send({
                     success: false,
@@ -164,17 +164,17 @@ module.exports = (app) => {
                     message: 'Error: Invalid, it may password incorrect'
                 })
             }
-            
+
             const cleanerSession = new CleanerSession();
             cleanerSession.userId = cleaner._id;
             cleanerSession.save((err, doc) => {
                 if (err) {
                     return res.status(400).send({
-                        success:false,
-                        message:'Error: server error'
+                        success: false,
+                        message: 'Error: server error'
                     });
                 }
-                
+
                 return res.status(200).send({
                     success: true,
                     message: 'Valid sign in',
@@ -188,8 +188,8 @@ module.exports = (app) => {
 
     app.get('/api/cleaner/account/verify', (req, res, next) => {
         // Get the token
-        const {query } = req;
-        const { token} = query;
+        const { query } = req;
+        const { token } = query;
         // ?token= test
 
         // Verify the token is one of a kind and it's not deleted
@@ -209,7 +209,7 @@ module.exports = (app) => {
                     success: false,
                     message: 'Error: Invalid'
                 });
-            } else{
+            } else {
                 return res.status(200).send({
                     success: true,
                     message: 'Good, verified account'
@@ -219,31 +219,31 @@ module.exports = (app) => {
     });
 
     app.get('/api/cleaner/account/logout', (req, res, next) => {
-        const {query } = req;
-        const { token} = query;
-         // ?token= test
- 
-         // Verify the token is one of a kind and it
-         CleanerSession.findOneAndUpdate({
-             _id: token,
-             isDeleted: false
+        const { query } = req;
+        const { token } = query;
+        // ?token= test
+
+        // Verify the token is one of a kind and it
+        CleanerSession.findOneAndUpdate({
+            _id: token,
+            isDeleted: false
         }, {
-            $set:{
-                isDeleted: true
-            }
-        },
-        null, (err, sessions) => {
-            if (err) {
-                 return res.status(400).send({
-                     success: false,
-                     message: 'Error: Server error'
-                 });
-            }
- 
-            return res.status(200).send({
-                success: true,
-                message: 'Good, logout account'
+                $set: {
+                    isDeleted: true
+                }
+            },
+            null, (err, sessions) => {
+                if (err) {
+                    return res.status(400).send({
+                        success: false,
+                        message: 'Error: Server error'
+                    });
+                }
+
+                return res.status(200).send({
+                    success: true,
+                    message: 'Good, logout account'
+                });
             });
-        });    
     });
 };

@@ -8,12 +8,12 @@ const UserSession = require('../../models/UserSession.js');
 module.exports = (app) => {
 
     app.post('/api/account/signup', (req, res, next) => {
-        
-        const {body} = req;
+
+        const { body } = req;
         console.log('body', body);
         let {
-            password 
-        } = body ;
+            password
+        } = body;
         let {
             email
         } = body;
@@ -25,21 +25,21 @@ module.exports = (app) => {
         if (!phoneNumber) {
             return res.status(400).send({
                 success: false,
-                message: 'Error: Phone number cannot be blank.' 
+                message: 'Error: Phone number cannot be blank.'
             });
         }
 
         if (!email) {
             return res.status(400).send({
                 success: false,
-                message: 'Error: email name cannot be blank.' 
+                message: 'Error: email name cannot be blank.'
             });
         }
 
         if (!password) {
             return res.status(400).send({
                 success: false,
-                message: 'Error: password cannot be blank.' 
+                message: 'Error: password cannot be blank.'
             });
         }
 
@@ -51,33 +51,33 @@ module.exports = (app) => {
         User.find({
             // email: email
             phoneNumber: phoneNumber
-        }, (err, previousUsers) =>{
+        }, (err, previousUsers) => {
             if (err) {
                 return res.status(400).send({
                     success: false,
-                    message: 'Error: Server error.' 
+                    message: 'Error: Server error.'
                 });
             } else if (previousUsers.length > 0) {
                 return res.status(400).send({
                     success: false,
-                    message: 'Error: Account(phone number) already exist.' 
+                    message: 'Error: Account(phone number) already exist.'
                 });
             }
-            
+
             // Save the new user
             const newUser = new User();
-        
+
             newUser.email = email;
             newUser.phoneNumber = phoneNumber;
             newUser.password = newUser.generateHash(password);
-            newUser.save((err,user) =>{
+            newUser.save((err, user) => {
                 if (err) {
                     return res.status(400).send({
                         success: false,
-                        message: 'Error: Server error.' 
+                        message: 'Error: Server error.'
                     });
                 }
-                
+
                 return res.status(201).send({
                     success: true,
                     message: 'Signed up'
@@ -87,9 +87,9 @@ module.exports = (app) => {
     });
 
     app.post('/api/account/signin', (req, res, next) => {
-        const {body} = req;
+        const { body } = req;
         const {
-            password, 
+            password,
         } = body;
         let {
             email
@@ -102,14 +102,14 @@ module.exports = (app) => {
         if (!phoneNumber) {
             return res.status(400).send({
                 success: false,
-                message: 'Error: phone number cannot be blank.' 
+                message: 'Error: phone number cannot be blank.'
             });
         }
 
         if (!password) {
             return res.status(400).send({
                 success: false,
-                message: 'Error: password cannot be blank.' 
+                message: 'Error: password cannot be blank.'
             });
         }
         email = email.toLowerCase();
@@ -117,7 +117,7 @@ module.exports = (app) => {
         User.find({
             // email: email
             phoneNumber: phoneNumber
-        }, (err, users)=> {
+        }, (err, users) => {
             if (err) {
                 return res.status(400).send({
                     success: false,
@@ -139,17 +139,17 @@ module.exports = (app) => {
                     message: 'Error: Invalid, it may password incorrect'
                 })
             }
-            
+
             const userSession = new UserSession();
             userSession.userId = user._id;
             userSession.save((err, doc) => {
                 if (err) {
                     return res.status(400).send({
-                        success:false,
-                        message:'Error: server error'
+                        success: false,
+                        message: 'Error: server error'
                     });
                 }
-                
+
                 return res.status(200).send({
                     success: true,
                     message: 'Valid sign in',
@@ -163,8 +163,8 @@ module.exports = (app) => {
 
     app.get('/api/account/verify', (req, res, next) => {
         // Get the token
-        const {query } = req;
-        const { token} = query;
+        const { query } = req;
+        const { token } = query;
         // ?token= test
 
         // Verify the token is one of a kind and it's not deleted
@@ -184,7 +184,7 @@ module.exports = (app) => {
                     success: false,
                     message: 'Error: Invalid'
                 });
-            } else{
+            } else {
                 return res.status(200).send({
                     success: true,
                     message: 'Good, verified account'
@@ -194,31 +194,31 @@ module.exports = (app) => {
     });
 
     app.get('/api/account/logout', (req, res, next) => {
-        const {query } = req;
-        const { token} = query;
-         // ?token= test
- 
-         // Verify the token is one of a kind and it
+        const { query } = req;
+        const { token } = query;
+        // ?token= test
+
+        // Verify the token is one of a kind and it
         UserSession.findOneAndUpdate({
-             _id: token,
-             isDeleted: false
+            _id: token,
+            isDeleted: false
         }, {
-            $set:{
-                isDeleted: true
-            }
-        },
-        null, (err, sessions) => {
-            if (err) {
-                 return res.status(400).send({
-                     success: false,
-                     message: 'Error: Server error'
-                 });
-            }
- 
-            return res.status(200).send({
-                success: true,
-                message: 'Good, logout account'
+                $set: {
+                    isDeleted: true
+                }
+            },
+            null, (err, sessions) => {
+                if (err) {
+                    return res.status(400).send({
+                        success: false,
+                        message: 'Error: Server error'
+                    });
+                }
+
+                return res.status(200).send({
+                    success: true,
+                    message: 'Good, logout account'
+                });
             });
-        });    
     });
 };
