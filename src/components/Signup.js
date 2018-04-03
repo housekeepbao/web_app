@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 import fetch from 'node-fetch';
 
 import {
-    getFromStorage,
-    setInStorage,
-  } from '../utils/storage';
+  getFromStorage,
+  setInStorage,
+} from '../utils/storage';
 
 
 class Signup extends Component {
@@ -15,13 +15,13 @@ class Signup extends Component {
   constructor() {
     super();
     this.state = {
-        isLoading: true,
-        token: '',
-        signUpError: '',
-        signUpPhone: '',
-        signUpEmail: '',
-        signUpPassword: '',
-        signUpPasswordConfirm:''
+      isLoading: true,
+      token: '',
+      signUpError: '',
+      signUpPhone: '',
+      signUpEmail: '',
+      signUpPassword: '',
+      signUpPasswordConfirm: ''
     };
 
     this.onTextboxChangeSignUpPhone = this.onTextboxChangeSignUpPhone.bind(this);
@@ -42,7 +42,7 @@ class Signup extends Component {
       signUpEmail: event.target.value,
     });
   }
-  
+
   onTextboxChangeSignUpPassword(event) {
     this.setState({
       signUpPassword: event.target.value,
@@ -50,9 +50,9 @@ class Signup extends Component {
   }
 
   onTextboxChangeSignUpPasswordConfirm(event) {
-      this.setState({
-        signUpPasswordConfirm: event.target.value,
-      });
+    this.setState({
+      signUpPasswordConfirm: event.target.value,
+    });
   }
 
   onChange = (e) => {
@@ -61,9 +61,9 @@ class Signup extends Component {
     this.setState(state);
   }
 
-//   onSubmit = (e) => {
-//     e.preventDefault();
-//   }
+  //   onSubmit = (e) => {
+  //     e.preventDefault();
+  //   }
 
   onSignUp() {
     const {
@@ -75,9 +75,9 @@ class Signup extends Component {
     this.setState({
       isLoading: true,
     });
-    
+
     // Post request to backend
-    fetch('/api/account/signup',{
+    fetch('/api/account/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -85,7 +85,7 @@ class Signup extends Component {
       body: JSON.stringify({
         phoneNumber: signUpPhone,
         email: signUpEmail,
-        password: signUpPassword, 
+        password: signUpPassword,
       }),
     }).then(res => res.json())
       .then(json => {
@@ -104,71 +104,71 @@ class Signup extends Component {
             isLoading: false,
           });
         }
-    });
+      });
   }
 
   render() {
     const { signUpPhone, signUpEmail, signUpPassword, signUpPasswordConfirm } = this.state;
     return (
-    <main class="page-main">
-		<div class="block">
-			<h2 class="text-center h-lg h-decor">會員註冊</h2>
-			<div class="container">
-			<div class="main-login main-center">
-                {/* <form class="" method="post" action="#"> */}
-                    <div class="form-group">
-                        <label for="username" class="cols-sm-2 control-label">行動電話</label>
-                        <div class="cols-sm-10">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                                {/* <input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username"/> */}
-                                <input type="tel" class="form-control" name="username" id="username" placeholder="手機號碼" value={signUpPhone} onChange={this.onTextboxChangeSignUpPhone}/><br />
+      <main class="page-main">
+        <div class="block">
+          <h2 class="text-center h-lg h-decor">會員註冊</h2>
+          <div class="container">
+            <div class="main-login main-center">
+              {/* <form class="" method="post" action="#"> */}
+              <div class="form-group">
+                <label for="username" class="cols-sm-2 control-label">行動電話</label>
+                <div class="cols-sm-10">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                    {/* <input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username"/> */}
+                    <input type="tel" class="form-control" name="username" id="username" placeholder="手機號碼" value={signUpPhone} onChange={this.onTextboxChangeSignUpPhone} /><br />
 
-                            </div>
-                        </div>
-                    </div>
+                  </div>
+                </div>
+              </div>
 
-                    <div class="form-group">
-                        <label for="password" class="cols-sm-2 control-label">密碼</label>
-                        <div class="cols-sm-10">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                {/* <input type="password" class="form-control" name="password" id="password"  placeholder="輸入你的密碼"/> */}
-                                <input type="password" class="form-control" placeholder="輸入你的密碼" value={signUpPassword} onChange={this.onTextboxChangeSignUpPassword}/><br />
-                            </div>
-                        </div>
-                    </div>
+              <div class="form-group">
+                <label for="password" class="cols-sm-2 control-label">密碼</label>
+                <div class="cols-sm-10">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                    {/* <input type="password" class="form-control" name="password" id="password"  placeholder="輸入你的密碼"/> */}
+                    <input type="password" class="form-control" placeholder="輸入你的密碼" value={signUpPassword} onChange={this.onTextboxChangeSignUpPassword} /><br />
+                  </div>
+                </div>
+              </div>
 
-                    <div class="form-group">
-                        <label for="confirm" class="cols-sm-2 control-label">再次確認密碼</label>
-                        <div class="cols-sm-10">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                {/* <input type="password" class="form-control" name="confirm" id="confirm"  placeholder="確認你的密碼"/> */}
-                                <input type="password" class="form-control" name="confirm" id="confirm" placeholder="確認你的密碼" value={signUpPasswordConfirm} onChange={this.onTextboxChangeSignUpPasswordConfirm}/><br />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="email" class="cols-sm-2 control-label">電子信箱</label>
-                        <div class="cols-sm-10">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                                {/* <input type="text" class="form-control" name="email" id="email"  placeholder="輸入email"/> */}
-                                <input type="email" class="form-control" name="email" id="email"  placeholder="輸入email" value={signUpEmail} onChange={this.onTextboxChangeSignUpEmail}/><br />
-                            </div>
-                        </div>
-                    </div>
+              <div class="form-group">
+                <label for="confirm" class="cols-sm-2 control-label">再次確認密碼</label>
+                <div class="cols-sm-10">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                    {/* <input type="password" class="form-control" name="confirm" id="confirm"  placeholder="確認你的密碼"/> */}
+                    <input type="password" class="form-control" name="confirm" id="confirm" placeholder="確認你的密碼" value={signUpPasswordConfirm} onChange={this.onTextboxChangeSignUpPasswordConfirm} /><br />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="email" class="cols-sm-2 control-label">電子信箱</label>
+                <div class="cols-sm-10">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                    {/* <input type="text" class="form-control" name="email" id="email"  placeholder="輸入email"/> */}
+                    <input type="email" class="form-control" name="email" id="email" placeholder="輸入email" value={signUpEmail} onChange={this.onTextboxChangeSignUpEmail} /><br />
+                  </div>
+                </div>
+              </div>
 
-                    <div class="form-group">
-                        {/* <a href="rigister_verification_.html" target="_blank" type="button" id="button" class="btn btn-primary btn-lg btn-block login-button">註冊</a> */}
-                        <button class="btn btn-primary btn-lg btn-block login-button" onClick={this.onSignUp}>註冊</button>
-                    </div>
-                {/* </form> */}
+              <div class="form-group">
+                {/* <a href="rigister_verification_.html" target="_blank" type="button" id="button" class="btn btn-primary btn-lg btn-block login-button">註冊</a> */}
+                <button class="btn btn-primary btn-lg btn-block login-button" onClick={this.onSignUp}>註冊</button>
+              </div>
+              {/* </form> */}
             </div>
-			</div>
-		</div>
-    </main>
+          </div>
+        </div>
+      </main>
     );
   }
 }
