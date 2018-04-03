@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import fetch from 'node-fetch';
-import'./Header.css'
-import logoimg from './logo.jpg'
+import'./Header.css';
+import logoimg from './logo.jpg';
 // The Header creates links that can be used to navigate
 // between routes.
 const pageHeader =  {
@@ -26,8 +26,8 @@ const Header = () => (
                     <img src={ logoimg}  width={80} height={80} alt=""></img>
                     <div className="shine"></div>
                 </div>
-                <div className="quote-button-wrap"><a href={""} className="btn"><i className="icon icon-bell"></i>Login</a></div>
-                <a href="#" className="menu-toggle"><i className="icon-line-menu"></i><i className="icon-cancel"></i></a>
+                <div className="quote-button-wrap"><Link to href={""} className="btn"><i className="icon icon-bell"></i>Login</Link ></div>
+                <Link to="#" className="menu-toggle"><i className="icon-line-menu"></i><i className="icon-cancel"></i></Link >
             </div>
         </div>
         <div className="page-header-menu">
