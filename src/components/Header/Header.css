@@ -8,6 +8,10 @@
     color: #425d74;
     box-shadow:5px 1px #cfcece;
 }
+.page-header-menu {
+  border-top: 3px solid #4ba0e8;
+}
+
 .pageHeaderTop {
     padding: 15px 0 15px;
     color: #425d74;

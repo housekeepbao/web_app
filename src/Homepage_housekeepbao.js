@@ -29,8 +29,8 @@ class Homepage_housekeepbao extends Component{
             <div>
                 <Header/>
                 <div className="mytest">
-                <h1>{this.state.count}</h1>
-                <button onClick={this.addCount}>add count</button>
+                    <h1>{this.state.count}</h1>
+                    <button onClick={this.addCount}>add count</button>
                 </div>
                 <Footer/>
             </div>
