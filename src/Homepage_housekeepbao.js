@@ -7,7 +7,9 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import'./css/custom.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import './images/logo/logo.jpg'
+import './images/logo/logo.jpg';
+import Mainslider from './components/mainslider/mainslider'
+import DemoCarousel from './components/mainslider/carsouel'
 import {
   getFromStorage,
   setInStorage,
@@ -28,10 +30,13 @@ class Homepage_housekeepbao extends Component{
         return (
             <div>
                 <Header/>
-                <div className="mytest">
-                    <h1>{this.state.count}</h1>
-                    <button onClick={this.addCount}>add count</button>
-                </div>
+                <DemoCarousel/>
+                <main>
+                    <div className="mytest">
+                        <h1>{this.state.count}</h1>
+                        <button onClick={this.addCount}>add count</button>
+                    </div>
+                </main>
                 <Footer/>
             </div>
         );
