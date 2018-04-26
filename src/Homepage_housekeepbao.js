@@ -8,8 +8,9 @@ import Footer from './components/Footer/Footer';
 import'./css/custom.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './images/logo/logo.jpg';
-import Mainslider from './components/mainslider/mainslider'
-import DemoCarousel from './components/mainslider/carsouel'
+import Mainslider from './components/mainslider/mainslider';
+import DemoCarousel from './components/mainslider/carsouel';
+import Mainblock from './components/homecompnents/main_block';
 import {
   getFromStorage,
   setInStorage,
@@ -31,6 +32,7 @@ class Homepage_housekeepbao extends Component{
             <div>
                 <Header/>
                 <DemoCarousel/>
+                <Mainblock/>
                 <main>
                     <div className="mytest">
                         <h1>{this.state.count}</h1>
