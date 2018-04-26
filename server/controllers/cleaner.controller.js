@@ -12,7 +12,7 @@ exports.signup = function (req, res) {
         lastName,
 
         password,
-        county,
+        country,
         workerAccount,
         workerReigon,
         workerAddress,
@@ -82,7 +82,7 @@ exports.signup = function (req, res) {
         newCleanerUser.firstName = firstName;
         newCleanerUser.lastName = lastName;
 
-        newCleanerUser.county = county;
+        newCleanerUser.country = country;
         newCleanerUser.workerAccount = workerAccount;
         newCleanerUser.workerReigon = workerReigon
         newCleanerUser.workerAddress = workerAddress;
@@ -101,10 +101,7 @@ exports.signup = function (req, res) {
                 });
             }
             console.log(cleaner);
-            return res.status(201).send({
-                success: true,
-                message: 'Cleaner Signed up'
-            });
+            return res.status(201).json(cleaner);
         });
     });
 };

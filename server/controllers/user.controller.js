@@ -62,7 +62,6 @@ exports.signup = function (req, res) {
 
         // Save the new user
         const newUser = new User();
-
         newUser.email = email;
         newUser.phoneNumber = phoneNumber;
         newUser.password = newUser.generateHash(password);
@@ -73,11 +72,7 @@ exports.signup = function (req, res) {
                     message: 'Error: Server error.'
                 });
             }
-
-            return res.status(201).send({
-                success: true,
-                message: 'Signed up'
-            });
+            return res.status(201).json(user);
         });
     });
 };

@@ -25,7 +25,7 @@ const CleanerSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
-    county: {
+    country: {
         type: String,
         default: ''
     },
